@@ -199,8 +199,16 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     }
 
     private void sentMessage() {
-        // ajouter des tests vérifiants ue le numéro a bien été saisi
-        SmsManager.getDefault().sendTextMessage(phone.getText().toString(), null, smsTextLong, null, null );
+
+        String phoneMessage = phone.getText().toString();
+        // Contrôle du format du numéro de téléphone
+        if (phoneMessage.length() == 10) {
+            SmsManager.getDefault().sendTextMessage(phoneMessage, null, smsTextLong, null, null);
+        } else {
+            Toast.makeText(this, R.string.permission_wrong, Toast.LENGTH_SHORT).show();
+            sms = true;
+            sendSms(sms);
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------------

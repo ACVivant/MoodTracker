@@ -24,6 +24,7 @@
     <string name="permission_no_btn">Non, non</string>
     <string name="permission_ok_toast">Permission accordée!</string>
     <string name="permission_no_toast">Permission refusée</string>
+    <string name="permission_wrong">"Oups, ce numéro n'a pas le bon nombre de chiffres"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
