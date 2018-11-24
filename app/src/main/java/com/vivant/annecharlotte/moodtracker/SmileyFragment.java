@@ -1,108 +1,113 @@
 package com.vivant.annecharlotte.moodtracker;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SmileyFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SmileyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SmileyFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+public class SmileyFragment extends android.support.v4.app.Fragment {
 
     public SmileyFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SmileyFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SmileyFragment newInstance(String param1, String param2) {
-        SmileyFragment fragment = new SmileyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_smiley, container, false);
+
+        RelativeLayout colorBg = (RelativeLayout) v.findViewById(R.id.fragment_page_rootview);
+        colorBg.setBackgroundResource(getArguments().getInt("color"));
+
+        ImageButton imageSmiley = (ImageButton) v.findViewById(R.id.fragment_main_smiley_image_view);
+        imageSmiley.setBackgroundResource(getArguments().getInt("image"));
+
+        return v;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_smiley, container, false);
+    public void onResume() {
+        super.onResume();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public static SmileyFragment newInstance(SmileyEnum smiley) {
+
+        SmileyFragment f = new SmileyFragment();
+        Bundle bTransfert = new Bundle();
+        int smileyColor;
+        int smileyIndex;
+        int smileyImage;
+
+        switch (smiley) {
+            case SAD:
+                smileyColor = SmileyEnum.SAD.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.SAD.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.SAD.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
+
+            case DISAPPOINTED:
+                smileyColor = SmileyEnum.DISAPPOINTED.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.DISAPPOINTED.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.DISAPPOINTED.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
+
+            case NORMAL:
+                smileyColor = SmileyEnum.NORMAL.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.NORMAL.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.NORMAL.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
+
+            case HAPPY:
+                smileyColor = SmileyEnum.HAPPY.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.HAPPY.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.HAPPY.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
+
+            case SUPER_HAPPY:
+                smileyColor = SmileyEnum.SUPER_HAPPY.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.SUPER_HAPPY.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.SUPER_HAPPY.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
+
+            default:
+                smileyColor = SmileyEnum.HAPPY.getColor();
+                bTransfert.putInt("color", smileyColor);
+                smileyImage = SmileyEnum.HAPPY.getImage();
+                bTransfert.putInt("image", smileyImage);
+                smileyIndex = SmileyEnum.HAPPY.getIndex();
+                bTransfert.putInt("index", smileyIndex);
+                break;
         }
+        f.setArguments(bTransfert);
+
+        return f;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
+
