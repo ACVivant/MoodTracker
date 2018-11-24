@@ -32,7 +32,7 @@ import java.util.Locale;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements SmileyFragment.OnButtonClickedListener  {
 
     private String NOTE_KEY;
     private String SMILEY_KEY;
@@ -48,6 +48,79 @@ public class MainActivity extends AppCompatActivity  {
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.setCurrentItem(3);
     }
+
+    @Override
+    public void onHistoryClicked() {
+    }
+
+    @Override
+    public void onPieClicked() {
+    }
+
+    @Override
+    public void onCommentClicked(int position) {
+        responseIndex = position;
+
+        View view;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        view = getLayoutInflater().inflate(R.layout.fragment_my_dialog, null);
+        smileyText = view.findViewById(R.id.frg_my_dialog_note_text_input);
+        builder.setView(view);
+        builder.setPositiveButton(R.string.validate_alertbtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                createKeys();
+                saveToday(smileyText.getText().toString());
+            }
+        });
+
+        builder.setNeutralButton(R.string.dismiss_alertbtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                createKeys();
+                saveToday("");
+            }
+        });
+        builder.create().show();
+    }
+
+    // méthode de sauvegarde de l'humeur et du commentaire
+    public void saveToday(String text) {
+        SharedPreferences preferences = getSharedPreferences("smiley", MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        if (text != null) {
+            editor.putString(NOTE_KEY , text);
+        } else {
+            editor.putString(NOTE_KEY, "");
+        }
+        editor.apply();
+        preferences.getString(NOTE_KEY, "défaut");
+
+        Log.d("Bibi", "texte enregistre: " + preferences.getString(NOTE_KEY, "défaut"));
+        Log.d("Bibi", "cle: " + NOTE_KEY);
+
+        editor.putInt(SMILEY_KEY, responseIndex);
+        editor.apply();
+    }
+
+    // récupération de la date du jour et conversion en String
+    public void createKeys() {
+        //---------------------------------------------
+        // à remettre en ligne en dehors des tests
+      /*  Date day = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+        String s = f.format(day);
+        NOTE_KEY = "NOTE_KEY_" + s;
+        SMILEY_KEY = "SMILEY_KEY_" + s;*/
+        //-----------------------------------------------
+
+        //--------------------------------------------
+        // pour le test
+        NOTE_KEY = "NOTE_KEY_20181118";
+        SMILEY_KEY = "SMILEY_KEY_20181118";
+        //--------------------------------------------
+    }
+
 
     //----------------------------------------------------------------------------------------------
     // Pour l'affichage des smileys au démarrage

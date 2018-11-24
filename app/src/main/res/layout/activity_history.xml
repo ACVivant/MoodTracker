@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistoryActivity"
+    android:orientation="vertical"
+    android:background="@color/light_grey">
+
+    <LinearLayout
+        android:id="@+id/activity_history_d7_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/banana_yellow"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+
+        <TextView
+            android:id="@+id/activity_history_d7_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="@string/d7_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d7_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d6_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/faded_red"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+        <TextView
+            android:id="@+id/activity_history_d6_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:text="@string/d6_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d6_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d5_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cornflower_blue_65"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+        <TextView
+            android:id="@+id/activity_history_d5_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="@string/d5_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d5_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d4_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/banana_yellow"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+
+        <TextView
+            android:id="@+id/activity_history_d4_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="@string/d4_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+        <ImageButton
+            android:id="@+id/activity_history_d4_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d3_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_sage"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+
+        <TextView
+            android:id="@+id/activity_history_d3_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.65"
+            android:text="@string/d3_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d3_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d2_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/banana_yellow"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+
+        <TextView
+            android:id="@+id/activity_history_d2_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="@string/d2_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d2_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_history_d1_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/warm_grey"
+        android:layout_weight="1"
+        android:weightSum="1.0">
+
+        <TextView
+            android:id="@+id/activity_history_d1_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:text="@string/d1_btn"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            />
+
+        <ImageButton
+            android:id="@+id/activity_history_d1_notebtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_comment_black_48px"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
+
+</LinearLayout>

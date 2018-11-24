@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">MoodTracker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dismiss_alertbtn">Annuler</string>
+    <string name="validate_alertbtn">Valider</string>
+    <string name="frg_commentary_hint">commentaire</string>
+
+    <string name="d7_btn">Il y a une semaine</string>
+    <string name="d6_btn">Il y a 6 jours</string>
+    <string name="d5_btn">Il y a 5 jours</string>
+    <string name="d4_btn">Il y a 4 jours</string>
+    <string name="d3_btn">Il y a 3 jours</string>
+    <string name="d2_btn">Avant-hier</string>
+    <string name="d1_btn">Hier</string>
+
 </resources>
