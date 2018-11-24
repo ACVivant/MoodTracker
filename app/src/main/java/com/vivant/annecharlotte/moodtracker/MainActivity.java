@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     public void onCommentClicked(int position) {
         responseIndex = position;
 
+        playMusique();
+
         View view;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         view = getLayoutInflater().inflate(R.layout.fragment_my_dialog, null);
@@ -123,6 +125,39 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         //--------------------------------------------
     }
 
+    public void playMusique() {
+        // pourquoi mes fichiers .wav apparaissent-ils en rouge dans l'arborescence?
+        MediaPlayer mediaPlayer;
+        // à personnaliser selon le smiley cliqué
+        //Toast.makeText(this, "responseIndex: " + responseIndex, Toast.LENGTH_LONG).show();
+
+        switch (responseIndex) {
+            case 0:
+                mediaPlayer = MediaPlayer.create(this, R.raw.loup5);
+                break;
+
+            case 1:
+                mediaPlayer = MediaPlayer.create(this, R.raw.chat4);
+                break;
+
+            case 2:
+                mediaPlayer = MediaPlayer.create(this, R.raw.chsaispas3);
+                break;
+
+            case 3:
+                mediaPlayer = MediaPlayer.create(this, R.raw.oiseau2);
+                break;
+
+            case 4:
+                mediaPlayer = MediaPlayer.create(this, R.raw.oiseau1);
+                break;
+
+            default:
+                mediaPlayer = MediaPlayer.create(this, R.raw.loup5);
+                break;
+        }
+        mediaPlayer.start();
+    }
 
     //----------------------------------------------------------------------------------------------
     // Pour l'affichage des smileys au démarrage
