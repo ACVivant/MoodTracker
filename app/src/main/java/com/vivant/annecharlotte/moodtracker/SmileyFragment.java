@@ -13,8 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class SmileyFragment extends android.support.v4.app.Fragment {
+public class SmileyFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
 
+    private OnButtonClickedListener mBtnClic;
+
+    public interface OnButtonClickedListener {
+        void onHistoryClicked();
+        void onCommentClicked(int position);
+        void onPieClicked();
+    }
     public SmileyFragment() {
     }
 
@@ -28,6 +35,27 @@ public class SmileyFragment extends android.support.v4.app.Fragment {
         ImageButton imageSmiley = (ImageButton) v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
+        // listener sur les trois types de boutons
+        v.findViewById(R.id.activity_main_note_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBtnClic.onCommentClicked(getArguments().getInt("index"));
+            }
+        });
+
+        v.findViewById(R.id.activity_main_history_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBtnClic.onHistoryClicked();
+            }
+        });
+
+        v.findViewById(R.id.activity_main_pie_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBtnClic.onPieClicked();
+            }
+        });
         return v;
     }
 
@@ -107,7 +135,17 @@ public class SmileyFragment extends android.support.v4.app.Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        try {
+            //Parent activity will automatically subscribe to callback
+            mBtnClic = (OnButtonClickedListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString()+ " must implement OnButtonClickedListener");
+        }
     }
 
+    @Override
+    public void onClick(View view) {
+    }
 }
 
