@@ -1,12 +1,17 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +19,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.vivant.annecharlotte.moodtracker.R;
 import com.vivant.annecharlotte.moodtracker.Model.SmileyEnum;
@@ -31,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     private EditText phone;
 
     protected int responseIndex;
+
+    private int SMS_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
                 saveToday(smileyText.getText().toString());
 
                 sms = true;
-                sendSms(sms);
+
+                askForPermission();
             }
         });
         builder.create().show();
@@ -95,29 +104,27 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     //----------------------------------------------------------------------------------------------------------------
     private void sendSms(boolean sms) {
         if (sms) {
-            // récupérer l'humeur du jour et le commentaire
-            // ouvre la fenêtre SMS
 
             String smsMood;
 
             switch (responseIndex) {
                 case 0:
-                    smsMood = "Trop dur";
+                    smsMood = "trop dur...";
                     break;
                 case 1:
-                    smsMood = "Pas terrible";
+                    smsMood = "pas terrible";
                     break;
                 case 2:
-                    smsMood = "Comme ci, comme ça";
+                    smsMood = "comme ci, comme ça";
                     break;
                 case 3:
-                    smsMood = "Plutôt cool!";
+                    smsMood = "plutôt cool!";
                     break;
                 case 4:
-                    smsMood = "Trop la fête!!!";
+                    smsMood = "trop la fête!!!";
                     break;
                     default:
-                        smsMood = "Normal, quoi";
+                        smsMood = "normal, quoi";
                         break;
             }
 
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             view = getLayoutInflater().inflate(R.layout.fragment_sms, null);
             phone = (EditText) view.findViewById(R.id.frg_sms_phonenumer_edittext);
-            smsText = view.findViewById(R.id.frg_sms_message_edittext);
+            smsText = (EditText) view.findViewById(R.id.frg_sms_message_edittext);
             smsTextLong = "Aujourd'hui mon humeur, c'est plutôt " + smsMood+ "\nHé oui, " + smileyText.getText().toString();
             smsText.setText(smsTextLong);
             builder.setView(view);
@@ -139,10 +146,55 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
             builder.setNeutralButton(R.string.dismiss_alertbtn, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
                 }
             });
 
             builder.create().show();
+        }
+    }
+
+    private void askForPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
+            sendSms(sms);
+        } else {
+            requestSMSPermission();
+        }
+    }
+
+    private void requestSMSPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.permission_title)
+                    .setMessage(R.string.permission_message)
+                    .setPositiveButton(R.string.permission_ok_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton(R.string.permission_no_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == SMS_PERMISSION_CODE) {
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, R.string.permission_ok_toast, Toast.LENGTH_SHORT).show();
+                sendSms(sms);
+            } else {
+                Toast.makeText(this, R.string.permission_no_toast, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -166,9 +218,6 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         }
         editor.apply();
         preferences.getString(NOTE_KEY, "défaut");
-
-        Log.d("Bibi", "texte enregistre: " + preferences.getString(NOTE_KEY, "défaut"));
-        Log.d("Bibi", "cle: " + NOTE_KEY);
 
         editor.putInt(SMILEY_KEY, responseIndex);
         editor.apply();

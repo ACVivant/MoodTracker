@@ -80,21 +80,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {     Log.d("Pref", "ce qu'on veut " + entry.getKey() + ": " + entry.getValue().toString()); }
 
         returnSavedSmiley();
-        /*smiley7return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus7, 3);
-        smiley6return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus6, 3);
-        smiley5return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus5, 3);
-        smiley4return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus4, 3);
-        smiley3return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus3, 3);
-        smiley2return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus2, 3);
-        smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
-
-        note7return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus7, null);
-        note6return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus6, null);
-        note5return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus5, null);
-        note4return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus4, null);
-        note3return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus3, null);
-        note2return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus2, null);
-        note1return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus1, null);*/
 
         // envoi des données au layout (couleur, longueur, affichage ou non du bouton) pour chaque jour de la semaine
 
