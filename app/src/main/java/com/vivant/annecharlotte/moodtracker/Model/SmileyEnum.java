@@ -1,4 +1,6 @@
-package com.vivant.annecharlotte.moodtracker;
+package com.vivant.annecharlotte.moodtracker.Model;
+
+import com.vivant.annecharlotte.moodtracker.R;
 
 /**
  * Created by Anne-Charlotte Vivant on 24/11/2018.

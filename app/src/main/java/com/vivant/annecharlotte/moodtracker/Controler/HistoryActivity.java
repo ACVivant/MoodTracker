@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.moodtracker;
+package com.vivant.annecharlotte.moodtracker.Controler;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vivant.annecharlotte.moodtracker.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

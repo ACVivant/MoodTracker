@@ -1,42 +1,34 @@
-package com.vivant.annecharlotte.moodtracker;
+package com.vivant.annecharlotte.moodtracker.Controler;
 
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.pdf.PdfDocument;
 import android.media.MediaPlayer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.support.v4.app.Fragment;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-
-import java.util.Date;
-import java.util.Locale;
+import com.vivant.annecharlotte.moodtracker.R;
+import com.vivant.annecharlotte.moodtracker.Model.SmileyEnum;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
-public class MainActivity extends AppCompatActivity implements SmileyFragment.OnButtonClickedListener  {
+public class MainActivity extends AppCompatActivity implements SmileyFragment.OnButtonClickedListener {
 
     private String NOTE_KEY;
     private String SMILEY_KEY;
     private EditText smileyText;
+    private boolean sms ;
+    private EditText smsText;
+    private String smsTextLong;
+    private EditText phone;
 
     protected int responseIndex;
 
@@ -62,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     @Override
     public void onCommentClicked(int position) {
         responseIndex = position;
+        sms = false;
 
         playMusique();
 
@@ -85,8 +78,82 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
                 saveToday("");
             }
         });
+        builder.setNegativeButton(R.string.sms_alertbtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                createKeys();
+                saveToday(smileyText.getText().toString());
+
+                sms = true;
+                sendSms(sms);
+            }
+        });
         builder.create().show();
     }
+    //-----------------------------------------------------------------------------------------------------------------
+    // ce qui concerne l'envoi du SMS
+    //----------------------------------------------------------------------------------------------------------------
+    private void sendSms(boolean sms) {
+        if (sms) {
+            // récupérer l'humeur du jour et le commentaire
+            // ouvre la fenêtre SMS
+
+            String smsMood;
+
+            switch (responseIndex) {
+                case 0:
+                    smsMood = "Trop dur";
+                    break;
+                case 1:
+                    smsMood = "Pas terrible";
+                    break;
+                case 2:
+                    smsMood = "Comme ci, comme ça";
+                    break;
+                case 3:
+                    smsMood = "Plutôt cool!";
+                    break;
+                case 4:
+                    smsMood = "Trop la fête!!!";
+                    break;
+                    default:
+                        smsMood = "Normal, quoi";
+                        break;
+            }
+
+            View view;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            view = getLayoutInflater().inflate(R.layout.fragment_sms, null);
+            phone = (EditText) view.findViewById(R.id.frg_sms_phonenumer_edittext);
+            smsText = view.findViewById(R.id.frg_sms_message_edittext);
+            smsTextLong = "Aujourd'hui mon humeur, c'est plutôt " + smsMood+ "\nHé oui, " + smileyText.getText().toString();
+            smsText.setText(smsTextLong);
+            builder.setView(view);
+            builder.setPositiveButton(R.string.validate_alertbtn, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    sentMessage();
+                }
+            });
+
+            builder.setNeutralButton(R.string.dismiss_alertbtn, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            builder.create().show();
+        }
+    }
+
+    private void sentMessage() {
+        // ajouter des tests vérifiants ue le numéro a bien été saisi
+        SmsManager.getDefault().sendTextMessage(phone.getText().toString(), null, smsTextLong, null, null );
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------
+    // ce qui concerne la sauvegarde
+    //----------------------------------------------------------------------------------------------------------------
 
     // méthode de sauvegarde de l'humeur et du commentaire
     public void saveToday(String text) {
@@ -125,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         //--------------------------------------------
     }
 
+    //-----------------------------------------------------------------------------------------------------------------
+    // ce qui concerne les sons
+    //----------------------------------------------------------------------------------------------------------------
     public void playMusique() {
         // pourquoi mes fichiers .wav apparaissent-ils en rouge dans l'arborescence?
         MediaPlayer mediaPlayer;
@@ -159,8 +229,9 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         mediaPlayer.start();
     }
 
-    //----------------------------------------------------------------------------------------------
-    // Pour l'affichage des smileys au démarrage
+    //-----------------------------------------------------------------------------------------------------------------
+    // ce qui concerne l'affichage au démarrage
+    //----------------------------------------------------------------------------------------------------------------
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {

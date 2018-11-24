@@ -3,6 +3,7 @@
 
     <string name="dismiss_alertbtn">Annuler</string>
     <string name="validate_alertbtn">Valider</string>
+    <string name="sms_alertbtn">Partager</string>
     <string name="frg_commentary_hint">commentaire</string>
 
     <string name="d7_btn">Il y a une semaine</string>
@@ -12,5 +13,9 @@
     <string name="d3_btn">Il y a 3 jours</string>
     <string name="d2_btn">Avant-hier</string>
     <string name="d1_btn">Hier</string>
+
+    <string name="welcome_sms">Pour toi à qui je dis tout:</string>
+    <string name="message_sms">Message</string>
+    <string name="text_btn">"C'est parti!"</string>
 
 </resources>
