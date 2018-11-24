@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
 
     @Override
     public void onHistoryClicked() {
+        Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(historyActivity);
     }
 
     @Override
