@@ -260,27 +260,27 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
 
         switch (responseIndex) {
             case 0:
-                mediaPlayer = MediaPlayer.create(this, R.raw.loup5);
+                mediaPlayer = MediaPlayer.create(this, R.raw.dur);
                 break;
 
             case 1:
-                mediaPlayer = MediaPlayer.create(this, R.raw.chat4);
+                mediaPlayer = MediaPlayer.create(this, R.raw.bof);
                 break;
 
             case 2:
-                mediaPlayer = MediaPlayer.create(this, R.raw.chsaispas3);
+                mediaPlayer = MediaPlayer.create(this, R.raw.normal);
                 break;
 
             case 3:
-                mediaPlayer = MediaPlayer.create(this, R.raw.oiseau2);
+                mediaPlayer = MediaPlayer.create(this, R.raw.happy);
                 break;
 
             case 4:
-                mediaPlayer = MediaPlayer.create(this, R.raw.oiseau1);
+                mediaPlayer = MediaPlayer.create(this, R.raw.superhappy);
                 break;
 
             default:
-                mediaPlayer = MediaPlayer.create(this, R.raw.loup5);
+                mediaPlayer = MediaPlayer.create(this, R.raw.happy);
                 break;
         }
         mediaPlayer.start();
