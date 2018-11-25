@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
 
     @Override
     public void onPieClicked() {
+        Intent pieActivity = new Intent(MainActivity.this, PieActivity.class);
+        startActivity(pieActivity);
+
     }
 
     @Override
