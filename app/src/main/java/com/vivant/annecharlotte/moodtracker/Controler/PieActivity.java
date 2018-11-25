@@ -1,13 +1,18 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vivant.annecharlotte.moodtracker.R;
 
 import java.text.SimpleDateFormat;
@@ -43,12 +48,32 @@ public class PieActivity extends AppCompatActivity {
             pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));
         }
 
-        PieDataSet dataSet = new PieDataSet(pieEntries, "mes humeurs");   // Pourquoi est-ce que je ne peux pas mettre R.strings.pie_title comme référence pour le titre?
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");   // Pourquoi est-ce que je ne peux pas mettre R.strings.pie_title comme référence pour le titre?
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(15f);
+        dataSet.setColors(new int[] {getResources().getColor(R.color.faded_red), getResources().getColor(R.color.warm_grey), getResources().getColor(R.color.cornflower_blue_65), getResources().getColor(R.color.light_sage), getResources().getColor(R.color.banana_yellow)}, 1000);
         PieData data = new PieData(dataSet);
+
+        data.setValueTextSize(16f);
+        data.setValueTextColor(Color.BLACK);
 
         PieChart chart = (PieChart) findViewById(R.id.activity_pie_piechart);
         chart.setData(data);
+        chart.animateY(1000);
+        chart.setHoleRadius(45f);
+        chart.setCenterText("Petit résumé \nde la semaine");
+        chart.setCenterTextSize(16f);
         chart.invalidate();
+
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+
+        Legend l = chart.getLegend();
+        l.setFormSize(10f); // set the size of the legend forms/shapes
+        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        l.setTextSize(12f);
+        l.setTextColor(Color.BLACK);
     }
 
     public void createTab() {
