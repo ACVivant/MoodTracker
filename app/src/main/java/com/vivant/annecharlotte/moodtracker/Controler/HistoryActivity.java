@@ -21,22 +21,16 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private LinearLayout mDay7, mDay6, mDay5, mDay4, mDay3, mDay2, mDay1;
-
-    private TextView mDay7TextView, mDay6TextView, mDay5TextView, mDay4TextView, mDay3TextView, mDay2TextView, mDay1TextView;
-
-    private ImageButton mDay7Btn, mDay6Btn, mDay5Btn, mDay4Btn, mDay3Btn, mDay2Btn, mDay1Btn;
-
     private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
-
     private String note7return, note6return, note5return, note4return, note3return, note2return, note1return;
-
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        TextView mDay7TextView, mDay6TextView, mDay5TextView, mDay4TextView, mDay3TextView, mDay2TextView, mDay1TextView;
+        LinearLayout mDay7, mDay6, mDay5, mDay4, mDay3, mDay2, mDay1;
+        ImageButton mDay7Btn, mDay6Btn, mDay5Btn, mDay4Btn, mDay3Btn, mDay2Btn, mDay1Btn;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
@@ -72,18 +66,11 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         mDay2Btn.setOnClickListener(this);
         mDay1Btn.setOnClickListener(this);
 
-        // récupérer les infos des 7 derniers jours et les stocker dans les variables smiley?return et note?return
+        calculate7dates();  // calculation of dates to recover
+        returnSavedSmiley();  //recovery of recorded data (smiley)
+        returndSavedNotes();  // recovery of recorded data(notes)
 
-        calculate7dates();
-
-        Map<String, ?> allEntries = getSharedPreferences("smiley", MODE_PRIVATE).getAll();
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {     Log.d("Pref", "ce qu'on veut " + entry.getKey() + ": " + entry.getValue().toString()); }
-
-        returnSavedSmiley();
-        returndSavedNotes();
-
-        // envoi des données au layout (couleur, longueur, affichage ou non du bouton) pour chaque jour de la semaine
-
+        // send data to the layout
         designHistory(mDay1, mDay1TextView, smiley1return, this);
         designHistory(mDay2, mDay2TextView, smiley2return, this);
         designHistory(mDay3, mDay3TextView, smiley3return, this);
@@ -101,7 +88,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         displayNoteBtn(note7return, mDay7Btn);
     }
 
-    // on fixe la couleur et la taille
+    // adaptation of the layout (colors and sizes of each view)
     public void designHistory(LinearLayout mDay, TextView mDayTV, int smiley, Context context) {
 
         LinearLayout.LayoutParams loparams = (LinearLayout.LayoutParams) mDayTV.getLayoutParams();
@@ -126,7 +113,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         mDayTV.setLayoutParams(loparams);
     }
 
-    // On affiche ou non le bouton commentaire sur le graph
+    // display or not the button
     public void displayNoteBtn(String noteReturn, ImageButton mDayBtn) {
         if (noteReturn==null || noteReturn=="") {
             mDayBtn.setVisibility(View.INVISIBLE);
@@ -135,7 +122,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    // créer les clés correspondants aux dates des 7 derniers jours
+    // create keys for 7 last days
     public void calculate7dates() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -156,8 +143,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         todayMinus7 = sdf.format(calendar.getTime());
     }
 
-    // affichage du Toast avec le commentaire enregistré
-
+    // show Toast
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -188,10 +174,10 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.activity_history_d7_notebtn:
                 Toast.makeText(this, note7return, Toast.LENGTH_LONG).show();
                 break;
-
         }
     }
 
+    // return saved smileys
     public void returnSavedSmiley() {
         smiley7return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus7, 3);
         smiley6return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus6, 3);
@@ -202,8 +188,8 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
     }
 
+    // return saved notes
     public void returndSavedNotes() {
-
         note7return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus7, null);
         note6return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus6, null);
         note5return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus5, null);

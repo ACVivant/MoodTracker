@@ -7,7 +7,7 @@ import com.vivant.annecharlotte.moodtracker.R;
  */
 public enum SmileyEnum {
 
-    // association des humeurs avec leur couleur de fond et leur position
+    // association of mood, color and index
     SAD(0, R.color.faded_red, R.drawable.smiley_disappointed),
     DISAPPOINTED(1, R.color.warm_grey, R.drawable.smiley_sad),
     NORMAL(2, R.color.cornflower_blue_65, R.drawable.smiley_normal),

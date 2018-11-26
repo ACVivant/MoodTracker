@@ -22,19 +22,14 @@ import java.util.List;
 import java.util.Map;
 
 public class PieActivity extends AppCompatActivity {
-
-    private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
 
-
-    HistoryActivity mHistoryActivity = new HistoryActivity();
-
     private int smileyTab[]= {0,0,0,0,0};
-    private String smileyName[] = {"Dur, dur", "Peut mieux faire", "Pas si mal", "Sympa!", "Trop fort!"};
+ //   private String smileyName[] = {getResources().getString(R.string.sms_1), getResources().getString(R.string.sms_2), getResources().getString(R.string.sms_3), getResources().getString(R.string.sms_4), getResources().getString(R.string.sms_5)};
+    private String smileyName[] = {"--", "-", "=", "+", "++"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("bibi", "onCreate: début");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie);
         calculate7dates();
@@ -48,7 +43,7 @@ public class PieActivity extends AppCompatActivity {
             pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));
         }
 
-        PieDataSet dataSet = new PieDataSet(pieEntries, "");   // Pourquoi est-ce que je ne peux pas mettre R.strings.pie_title comme référence pour le titre?
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(15f);
         dataSet.setColors(new int[] {getResources().getColor(R.color.faded_red), getResources().getColor(R.color.warm_grey), getResources().getColor(R.color.cornflower_blue_65), getResources().getColor(R.color.light_sage), getResources().getColor(R.color.banana_yellow)}, 1000);
@@ -61,8 +56,8 @@ public class PieActivity extends AppCompatActivity {
         chart.setData(data);
         chart.animateY(1000);
         chart.setHoleRadius(45f);
-        chart.setCenterText("Petit résumé \nde la semaine");
-        chart.setCenterTextSize(16f);
+        chart.setCenterText(getResources().getString(R.string.pie_title));
+        chart.setCenterTextSize(18f);
         chart.invalidate();
 
         Description description = new Description();
@@ -77,6 +72,7 @@ public class PieActivity extends AppCompatActivity {
     }
 
     public void createTab() {
+        int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
 
         smiley7return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus7, 3);
         smiley6return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus6, 3);
@@ -99,7 +95,7 @@ public class PieActivity extends AppCompatActivity {
         }
     }
 
-    // créer les clés correspondants aux dates des 7 derniers jours
+    // create keys for 7 late days
     public void calculate7dates() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");

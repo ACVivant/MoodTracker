@@ -27,13 +27,14 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_smiley, container, false);
 
+        // Send informations for daptation of image and background
         RelativeLayout colorBg = (RelativeLayout) v.findViewById(R.id.fragment_page_rootview);
         colorBg.setBackgroundResource(getArguments().getInt("color"));
 
         ImageButton imageSmiley = (ImageButton) v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
-        // listener sur les trois types de boutons
+        // listeners on all the buttons
         v.findViewById(R.id.activity_main_note_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,10 +74,9 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
 
         SmileyFragment f = new SmileyFragment();
         Bundle bTransfert = new Bundle();
-        int smileyColor;
-        int smileyIndex;
-        int smileyImage;
+        int smileyColor, smileyIndex, smileyImage;
 
+        // link between moods and their graphical characteristics and index
         switch (smiley) {
             case SAD:
                 smileyColor = SmileyEnum.SAD.getColor();
@@ -133,7 +133,6 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
                 break;
         }
         f.setArguments(bTransfert);
-
         return f;
     }
 
