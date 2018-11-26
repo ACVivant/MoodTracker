@@ -41,6 +41,13 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
             }
         });
 
+        v.findViewById(R.id.fragment_main_smiley_image_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBtnClic.onCommentClicked(getArguments().getInt("index"));
+            }
+        });
+
         v.findViewById(R.id.activity_main_history_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

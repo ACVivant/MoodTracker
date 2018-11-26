@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.vivant.annecharlotte.moodtracker.R;
 import com.vivant.annecharlotte.moodtracker.Model.SmileyEnum;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity implements SmileyFragment.OnButtonClickedListener {
@@ -238,17 +241,17 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     public void createKeys() {
         //---------------------------------------------
         // à remettre en ligne en dehors des tests
-      /*  Date day = new Date();
+        Date day = new Date();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String s = f.format(day);
         NOTE_KEY = "NOTE_KEY_" + s;
-        SMILEY_KEY = "SMILEY_KEY_" + s;*/
+        SMILEY_KEY = "SMILEY_KEY_" + s;
         //-----------------------------------------------
 
         //--------------------------------------------
         // pour le test
-        NOTE_KEY = "NOTE_KEY_20181118";
-        SMILEY_KEY = "SMILEY_KEY_20181118";
+        //NOTE_KEY = "NOTE_KEY_20181118";
+        //SMILEY_KEY = "SMILEY_KEY_20181118";
         //--------------------------------------------
     }
 

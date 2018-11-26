@@ -80,6 +80,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {     Log.d("Pref", "ce qu'on veut " + entry.getKey() + ": " + entry.getValue().toString()); }
 
         returnSavedSmiley();
+        returndSavedNotes();
 
         // envoi des données au layout (couleur, longueur, affichage ou non du bouton) pour chaque jour de la semaine
 
@@ -199,6 +200,9 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         smiley3return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus3, 3);
         smiley2return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus2, 3);
         smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
+    }
+
+    public void returndSavedNotes() {
 
         note7return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus7, null);
         note6return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus6, null);
