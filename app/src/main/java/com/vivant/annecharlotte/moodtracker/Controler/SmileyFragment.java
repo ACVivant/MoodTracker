@@ -22,19 +22,23 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
     }
     public SmileyFragment() {
     }
-
+    /**
+     * Send informations for adaptation of image and background and put listeners on all the buttons
+     *
+     * @see PieActivity#calculate7dates()
+     * @see PieActivity#createTab()
+     * @see PieActivity#setupPieChart()
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_smiley, container, false);
 
-        // Send informations for daptation of image and background
         RelativeLayout colorBg = v.findViewById(R.id.fragment_page_rootview);
         colorBg.setBackgroundResource(getArguments().getInt("color"));
 
         ImageButton imageSmiley = v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
-        // listeners on all the buttons
         v.findViewById(R.id.activity_main_note_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +73,9 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
     public void onResume() {
         super.onResume();
     }
-
+    /**
+     * give the characteristics of each view according to mood
+     */
     public static SmileyFragment newInstance(SmileyEnum smiley) {
 
         SmileyFragment f = new SmileyFragment();

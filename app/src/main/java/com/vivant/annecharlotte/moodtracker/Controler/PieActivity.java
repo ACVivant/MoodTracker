@@ -14,14 +14,39 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+/**
+ * PieActivity manages what is related to the statistic function.
+ *
+ * Members of this class are characterized by :
+ * values of keys used in SavedSharedPreferences
+ * strings for the legend
+ * array with number of occurences of each mood for the 7 last days
+ *
+ * @author acvivant
+ * @version 1.0
+ */
 public class PieActivity extends AppCompatActivity {
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
 
     private int smileyTab[]= {0,0,0,0,0};
- //   private String smileyName[] = {getResources().getString(R.string.sms_1), getResources().getString(R.string.sms_2), getResources().getString(R.string.sms_3), getResources().getString(R.string.sms_4), getResources().getString(R.string.sms_5)};
-    private String smileyName[] = {"--", "-", "=", "+", "++"};
+  /*  String leg1 = getResources().getString(R.string.sms_1);  // Ca fait planter l'appli! Pourquoi?
+    String leg2 = getResources().getString(R.string.sms_2);
+    String leg3 = getResources().getString(R.string.sms_3);
+    String leg4 = getResources().getString(R.string.sms_4);
+    String leg5 = getResources().getString(R.string.sms_5);*/
 
+ //   private String smileyName[] = {leg1, leg2, leg3, leg4, leg5};
+    private String smileyName[] = {"affreuse", "mauvaise", "normale", "bonne", "très bonne"};
+
+    /**
+     * generate a pie chart with statistic about moods of 7 lasted days
+     *
+     * @param savedInstanceState
+     *                  saved instance state
+     * @see PieActivity#calculate7dates()
+     * @see PieActivity#createTab()
+     * @see PieActivity#setupPieChart()
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,41 +55,31 @@ public class PieActivity extends AppCompatActivity {
         createTab();
         setupPieChart();
     }
+    /**
+     * create keys for 7 late days
+     */
+    public void calculate7dates() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-    public void  setupPieChart() {
-        List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i=0; i<smileyName.length; i++) {
-            pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));
-        }
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, "");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(15f);
-        dataSet.setColors(new int[] {getResources().getColor(R.color.faded_red), getResources().getColor(R.color.warm_grey), getResources().getColor(R.color.cornflower_blue_65), getResources().getColor(R.color.light_sage), getResources().getColor(R.color.banana_yellow)}, 1000);
-        PieData data = new PieData(dataSet);
-
-        data.setValueTextSize(16f);
-        data.setValueTextColor(Color.BLACK);
-
-        PieChart chart = findViewById(R.id.activity_pie_piechart);
-        chart.setData(data);
-        chart.animateY(1000);
-        chart.setHoleRadius(45f);
-        chart.setCenterText(getResources().getString(R.string.pie_title));
-        chart.setCenterTextSize(18f);
-        chart.invalidate();
-
-        Description description = new Description();
-        description.setText("");
-        chart.setDescription(description);
-
-        Legend l = chart.getLegend();
-        l.setFormSize(10f); // set the size of the legend forms/shapes
-        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-        l.setTextSize(12f);
-        l.setTextColor(Color.BLACK);
+        calendar.add(Calendar.DATE, -1);
+        todayMinus1 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus2 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus3 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus4 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus5 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus6 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus7 = sdf.format(calendar.getTime());
     }
-
+    /**
+     * create array  with statistics
+     */
     public void createTab() {
         int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
 
@@ -88,26 +103,43 @@ public class PieActivity extends AppCompatActivity {
             }
         }
     }
+    /**
+     * customize the pie chart
+     */
+    public void  setupPieChart() {
+        List<PieEntry> pieEntries = new ArrayList<>();
+        for (int i=0; i<smileyName.length; i++) {
+            pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));
+        }
 
-    // create keys for 7 late days
-    public void calculate7dates() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.pie_legend_title));
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(15f);
+        dataSet.setColors(new int[] {getResources().getColor(R.color.faded_red), getResources().getColor(R.color.warm_grey), getResources().getColor(R.color.cornflower_blue_65), getResources().getColor(R.color.light_sage), getResources().getColor(R.color.banana_yellow)}, 1000);
+        PieData data = new PieData(dataSet);
 
-        calendar.add(Calendar.DATE, -1);
-        todayMinus1 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus2 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus3 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus4 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus5 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus6 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus7 = sdf.format(calendar.getTime());
+        data.setValueTextSize(16f);
+        data.setValueTextColor(Color.BLACK);
+
+        PieChart chart = findViewById(R.id.activity_pie_piechart);
+        chart.setData(data);
+        chart.animateY(1000);
+        chart.setHoleRadius(45f);
+        chart.setCenterText(getResources().getString(R.string.pie_title));
+        chart.setCenterTextSize(18f);
+        chart.invalidate();
+
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+
+        Legend l = chart.getLegend();
+        l.setFormSize(20f); // set the size of the legend forms/shapes
+        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        l.setTextSize(16f);
+        l.setTextColor(Color.BLACK);
+        l.setXEntrySpace(3f);
+        l.setWordWrapEnabled(true);
     }
 }
 

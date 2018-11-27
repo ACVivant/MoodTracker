@@ -13,11 +13,36 @@ import com.vivant.annecharlotte.moodtracker.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * HistoryActivity manages what is related to the application history function.
+ *
+ * Members of this class are characterized by :
+ * values of registered moods.
+ * values of registered notes
+ * date of 7 pasted days
+ *
+ * @author acvivant
+ * @version 1.0
+ */
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener{
+    /**
+     * none of these variables are modifiable
+     */
     private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
     private String note7return, note6return, note5return, note4return, note3return, note2return, note1return;
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
 
+    /**
+     * send data to the layout
+     *
+     * @param savedInstanceState
+     *                  saved instance state
+     * @see HistoryActivity#calculate7dates()
+     * @see HistoryActivity#returnSavedSmiley()
+     * @see HistoryActivity#returndSavedNotes()
+     * @see HistoryActivity#designHistory(LinearLayout, TextView, int, Context)
+     * @see HistoryActivity#displayNoteBtn(String, ImageButton)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         TextView mDay7TextView, mDay6TextView, mDay5TextView, mDay4TextView, mDay3TextView, mDay2TextView, mDay1TextView;
@@ -59,9 +84,9 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         mDay2Btn.setOnClickListener(this);
         mDay1Btn.setOnClickListener(this);
 
-        calculate7dates();  // calculation of dates to recover
-        returnSavedSmiley();  //recovery of recorded data (smiley)
-        returndSavedNotes();  // recovery of recorded data(notes)
+        calculate7dates();
+        returnSavedSmiley();
+        returndSavedNotes();
 
         // send data to the layout
         designHistory(mDay1, mDay1TextView, smiley1return, this);
@@ -80,8 +105,63 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         displayNoteBtn(note6return, mDay6Btn);
         displayNoteBtn(note7return, mDay7Btn);
     }
+     /**
+     * create keys for 7 last days
+     */
+    public void calculate7dates() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-    // adaptation of the layout (colors and sizes of each view)
+        calendar.add(Calendar.DATE, -1);
+        todayMinus1 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus2 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus3 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus4 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus5 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus6 = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -1);
+        todayMinus7 = sdf.format(calendar.getTime());
+    }
+    /**
+     * return saved smileys
+     */
+    public void returnSavedSmiley() {
+        smiley7return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus7, 3);
+        smiley6return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus6, 3);
+        smiley5return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus5, 3);
+        smiley4return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus4, 3);
+        smiley3return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus3, 3);
+        smiley2return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus2, 3);
+        smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
+    }
+    /**
+     * return saved notes
+     */
+    public void returndSavedNotes() {
+        note7return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus7, null);
+        note6return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus6, null);
+        note5return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus5, null);
+        note4return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus4, null);
+        note3return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus3, null);
+        note2return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus2, null);
+        note1return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus1, null);
+    }
+    /**
+     * adaptation of the layout (colors and sizes of each view)
+     * @param mDay
+     *            LinearLayout for each day in HistoryActivity / mDay?
+     * @param mDayTV
+     *            TextView with the text of the day / MDay?TextView
+     * @param smiley
+     *            Index of registered smiley of the day / smiley?return
+     * @param context
+     *            This context
+     */
     public void designHistory(LinearLayout mDay, TextView mDayTV, int smiley, Context context) {
 
         LinearLayout.LayoutParams loparams = (LinearLayout.LayoutParams) mDayTV.getLayoutParams();
@@ -105,38 +185,26 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         }
         mDayTV.setLayoutParams(loparams);
     }
-
-    // display or not the button
+    /**
+     * display or not the button
+     * @param noteReturn
+     *            note which was registerd in SavedSharedPreferences for a day
+     * @param mDayBtn
+     *            Button showing if there is a note or not for a day
+     */
     public void displayNoteBtn(String noteReturn, ImageButton mDayBtn) {
-        if (noteReturn==null || noteReturn=="") {
+        if (noteReturn==null || noteReturn.equals("")) {
             mDayBtn.setVisibility(View.INVISIBLE);
         } else {
             mDayBtn.setVisibility(View.VISIBLE);
         }
     }
-
-    // create keys for 7 last days
-    public void calculate7dates() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
-        calendar.add(Calendar.DATE, -1);
-        todayMinus1 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus2 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus3 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus4 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus5 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus6 = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);
-        todayMinus7 = sdf.format(calendar.getTime());
-    }
-
-    // show Toast
+    /**
+     * show Toast if one note button is clicked
+     * @param v
+     *            view corresponding of the representation of a day,
+     *            give us the reference of the day which vas choose when button was clicked
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -168,27 +236,5 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, note7return, Toast.LENGTH_LONG).show();
                 break;
         }
-    }
-
-    // return saved smileys
-    public void returnSavedSmiley() {
-        smiley7return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus7, 3);
-        smiley6return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus6, 3);
-        smiley5return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus5, 3);
-        smiley4return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus4, 3);
-        smiley3return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus3, 3);
-        smiley2return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus2, 3);
-        smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
-    }
-
-    // return saved notes
-    public void returndSavedNotes() {
-        note7return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus7, null);
-        note6return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus6, null);
-        note5return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus5, null);
-        note4return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus4, null);
-        note3return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus3, null);
-        note2return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus2, null);
-        note1return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus1, null);
     }
 }

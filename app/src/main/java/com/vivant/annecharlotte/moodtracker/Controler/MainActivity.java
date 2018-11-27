@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     private String NOTE_KEY;
     private String SMILEY_KEY;
     private EditText smileyText;
-    private boolean sms ;
     private String smsTextLong;
     private EditText phone;
 
@@ -48,23 +47,37 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.setCurrentItem(3);
     }
-
+    /**
+     * start HistoryActivity when user clicks on button historic button
+     * @see HistoryActivity
+     */
     @Override
     public void onHistoryClicked() {
         Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
         startActivity(historyActivity);
     }
-
+    /**
+     * start PieActivity when user clicks on piechart button
+     * @see PieActivity
+     */
     @Override
     public void onPieClicked() {
         Intent pieActivity = new Intent(MainActivity.this, PieActivity.class);
         startActivity(pieActivity);
     }
 
+    /**
+     * generate AlertDialog when user clicks on note button
+     * @param position
+     *          index of the smiley which was clicked
+     * @see MainActivity#playMusique()
+     * @see MainActivity#createKeys()
+     * @see MainActivity#saveToday(String)
+     * @see MainActivity#askForPermission()
+     */
     @Override
     public void onCommentClicked(int position) {
         responseIndex = position;
-        sms = false;
 
         playMusique();
 
@@ -94,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
                 createKeys();
                 saveToday(smileyText.getText().toString());
 
-                sms = true;
+                //sms = true;
                 askForPermission();
             }
         });
@@ -103,11 +116,66 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     //-----------------------------------------------------------------------------------------------------------------
     // All about SMS
     //----------------------------------------------------------------------------------------------------------------
-    private void sendSms(boolean sms) {
+    /**
+     * launch method for permission to send SMS if not already given
+     * @see MainActivity#sendSms
+     * @see MainActivity#requestSMSPermission()
+     */
+    private void askForPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
+            sendSms();
+        } else {
+            requestSMSPermission();
+        }
+    }
+    /**
+     * inform user that we need permission to send SMS
+     */
+    private void requestSMSPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.permission_title)
+                    .setMessage(R.string.permission_message)
+                    .setPositiveButton(R.string.permission_ok_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton(R.string.permission_no_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+        }
+    }
+
+    /**
+     * generate Toast showing if user gave the permission to send SMS
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == SMS_PERMISSION_CODE) {
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, R.string.permission_ok_toast, Toast.LENGTH_SHORT).show();
+                sendSms();
+            } else {
+                Toast.makeText(this, R.string.permission_no_toast, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    /**
+     * generate AlertDialog with automatic content (note and smiley, EditText for phone number)
+     */
+    private void sendSms() {
         EditText smsText;
         String smsMood;
 
-        if (sms) {
             switch (responseIndex) {
                 case 0:
                     smsMood = getResources().getString(R.string.sms_1);
@@ -150,68 +218,38 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
                 }
             });
             builder.create().show();
-        }
     }
-
-    private void askForPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
-            sendSms(sms);
-        } else {
-            requestSMSPermission();
-        }
-    }
-
-    private void requestSMSPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.permission_title)
-                    .setMessage(R.string.permission_message)
-                    .setPositiveButton(R.string.permission_ok_btn, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton(R.string.permission_no_btn, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create().show();
-
-        } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == SMS_PERMISSION_CODE) {
-            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, R.string.permission_ok_toast, Toast.LENGTH_SHORT).show();
-                sendSms(sms);
-            } else {
-                Toast.makeText(this, R.string.permission_no_toast, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
+    /**
+     * verify that the phone nuber as the goof format and sens the SMS
+     */
     private void sentMessage() {
-
         String phoneMessage = phone.getText().toString();
-        // Contrôle du format du numéro de téléphone
         if (phoneMessage.length() == 10) {
             SmsManager.getDefault().sendTextMessage(phoneMessage, null, smsTextLong, null, null);
         } else {
             Toast.makeText(this, R.string.permission_wrong, Toast.LENGTH_SHORT).show();
-            sendSms(sms);
+            sendSms();
         }
     }
     //-----------------------------------------------------------------------------------------------------------------
     // All about saving data
     //----------------------------------------------------------------------------------------------------------------
-    public void saveToday(String text) {   // save the information of the day
+    /**
+     * create keys to save datas in SavedSharedPreferences
+     */
+    public void createKeys() { // create the key of the day for theSavesPreferences
+        Date day = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+        String s = f.format(day);
+        NOTE_KEY = "NOTE_KEY_" + s;
+        SMILEY_KEY = "SMILEY_KEY_" + s;
+    }
+    /**
+     * save mood and note of the day
+     * @param text
+     *          note that the user may have entered
+     */
+    public void saveToday(String text) {
         SharedPreferences preferences = getSharedPreferences("smiley", MODE_PRIVATE);
         SharedPreferences.Editor editor=preferences.edit();
         if (text != null) {
@@ -226,16 +264,13 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         editor.apply();
     }
 
-    public void createKeys() { // create the key of the day for theSavesPreferences
-        Date day = new Date();
-        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
-        String s = f.format(day);
-        NOTE_KEY = "NOTE_KEY_" + s;
-        SMILEY_KEY = "SMILEY_KEY_" + s;
-    }
     //-----------------------------------------------------------------------------------------------------------------
     // ALl about sound
     //----------------------------------------------------------------------------------------------------------------
+    /**
+     * play a sound when user saves a mood
+     * each mood is linked with a particular sound
+     */
     public void playMusique() {
         MediaPlayer mediaPlayer;
 
@@ -264,6 +299,9 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     //-----------------------------------------------------------------------------------------------------------------
     // All about ViewPager
     //----------------------------------------------------------------------------------------------------------------
+    /**
+     * link between position in ViewPager and Mood
+     */
     private class MyPagerAdapter extends FragmentPagerAdapter {
         private MyPagerAdapter(FragmentManager fm) {
             super(fm);

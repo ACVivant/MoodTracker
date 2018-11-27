@@ -3,11 +3,11 @@ package com.vivant.annecharlotte.moodtracker.Model;
 import com.vivant.annecharlotte.moodtracker.R;
 
 /**
+ * Association of mood, color and index
  * Created by Anne-Charlotte Vivant on 24/11/2018.
  */
 public enum SmileyEnum {
 
-    // association of mood, color and index
     SAD(0, R.color.faded_red, R.drawable.smiley_disappointed),
     DISAPPOINTED(1, R.color.warm_grey, R.drawable.smiley_sad),
     NORMAL(2, R.color.cornflower_blue_65, R.drawable.smiley_normal),

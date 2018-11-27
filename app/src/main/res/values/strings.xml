@@ -32,18 +32,14 @@
     <string name="permission_wrong">"Oups, ce numéro n'a pas le bon nombre de chiffres"</string>
     <string name="hint_tel">numéro de téléphone</string>
 
-    <string name="sms_1">"carrément mauvaise"</string>
-    <string name="sms_2">"pas franchement bonne"</string>
-    <string name="sms_3">"ni bonne, ni mauvaise"</string>
+    <string name="sms_1">"affreuse"</string>
+    <string name="sms_2">"mauvaise"</string>
+    <string name="sms_3">"normale"</string>
     <string name="sms_4">"bonne"</string>
     <string name="sms_5">"super bonne"</string>
-    <string name="sms_text1">"Je te partage mon humeur du moment. Elle est"</string>
+    <string name="sms_text1">"Je te partage mon humeur du moment. Elle est "</string>
 
-    <string name="pie_title">Petit résumé de la semaine</string>
-    <string name="pie_1">"--"</string>
-    <string name="pie_2">"-"</string>
-    <string name="pie_3">"="</string>
-    <string name="pie_4">"+"</string>
-    <string name="pie_5">"++"</string>
+    <string name="pie_title">Statistiques de la semaine</string>
+    <string name="pie_legend_title">  humeur </string>
 
 </resources>
