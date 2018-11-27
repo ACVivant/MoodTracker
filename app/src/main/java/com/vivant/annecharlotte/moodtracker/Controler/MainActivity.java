@@ -16,7 +16,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        VerticalViewPager pager = (VerticalViewPager) findViewById(R.id.activity_main_verticalviewpager);
+        VerticalViewPager pager = findViewById(R.id.activity_main_verticalviewpager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.setCurrentItem(3);
     }
@@ -133,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
             View view;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             view = getLayoutInflater().inflate(R.layout.fragment_sms, null);
-            phone = (EditText) view.findViewById(R.id.frg_sms_phonenumer_edittext);
-            smsText = (EditText) view.findViewById(R.id.frg_sms_message_edittext);
+            phone = view.findViewById(R.id.frg_sms_phonenumer_edittext);
+            smsText = view.findViewById(R.id.frg_sms_message_edittext);
             smsTextLong = getResources().getString(R.string.sms_text1) + smsMood + ". \n" + smileyText.getText().toString();
             smsText.setText(smsTextLong);
             builder.setView(view);

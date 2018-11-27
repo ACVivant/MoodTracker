@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:text="@string/d7_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -31,6 +31,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d7_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -60,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:text="@string/d6_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -68,6 +69,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d6_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -97,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:text="@string/d5_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -105,6 +107,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d5_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -135,13 +138,14 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:text="@string/d4_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
             />
         <ImageButton
             android:id="@+id/activity_history_d4_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -172,7 +176,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.65"
             android:text="@string/d3_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -180,6 +184,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d3_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -210,7 +215,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:text="@string/d2_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -218,6 +223,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d2_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -248,7 +254,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.35"
             android:text="@string/d1_btn"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="8dp"
             android:textSize="14sp"
             android:textAllCaps="false"
@@ -256,6 +262,7 @@
 
         <ImageButton
             android:id="@+id/activity_history_d1_notebtn"
+            android:contentDescription="@string/description_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"

@@ -8,6 +8,7 @@
 
     <ImageButton
         android:id="@+id/fragment_main_smiley_image_view"
+        android:contentDescription="@string/description_smiley_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -16,12 +17,14 @@
 
     <ImageView
         android:id="@+id/activity_main_blank"
+        android:contentDescription="@string/description_bottom_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fragment_main_smiley_image_view"/>
 
     <ImageButton
         android:id="@+id/activity_main_note_btn"
+        android:contentDescription="@string/description_btn_welcome"
         android:layout_width="wrap_content"
         android:layout_height="147dp"
         android:layout_alignParentStart="true"
@@ -33,6 +36,7 @@
 
     <ImageButton
         android:id="@+id/activity_main_pie_btn"
+        android:contentDescription="@string/description_btn_welcome"
         android:layout_width="wrap_content"
         android:layout_height="147dp"
         android:layout_alignParentBottom="true"
@@ -43,6 +47,7 @@
 
     <ImageButton
         android:id="@+id/activity_main_history_btn"
+        android:contentDescription="@string/description_btn_welcome"
         android:layout_width="wrap_content"
         android:layout_height="145dp"
         android:layout_alignParentEnd="true"

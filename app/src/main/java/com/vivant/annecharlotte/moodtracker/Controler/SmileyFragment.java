@@ -28,10 +28,10 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
         View v = inflater.inflate(R.layout.fragment_smiley, container, false);
 
         // Send informations for daptation of image and background
-        RelativeLayout colorBg = (RelativeLayout) v.findViewById(R.id.fragment_page_rootview);
+        RelativeLayout colorBg = v.findViewById(R.id.fragment_page_rootview);
         colorBg.setBackgroundResource(getArguments().getInt("color"));
 
-        ImageButton imageSmiley = (ImageButton) v.findViewById(R.id.fragment_main_smiley_image_view);
+        ImageButton imageSmiley = v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
         // listeners on all the buttons

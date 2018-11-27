@@ -4,10 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="50dp"
-    tools:context=".Controler.SmsFragment">
+    android:layout_margin="50dp">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/fragment_sms_phone_edittext"
@@ -23,7 +21,7 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:inputType="phone"
-        android:hint="numéro de téléphone"
+        android:hint="@string/hint_tel"
         tools:textSize="24sp" />
 
     <EditText

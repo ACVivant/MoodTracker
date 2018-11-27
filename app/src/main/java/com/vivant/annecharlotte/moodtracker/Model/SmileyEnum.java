@@ -21,7 +21,7 @@ public enum SmileyEnum {
         this.image = image;
     }
 
-    private int index = 0;
+    private int index;
     private int color;
     private int image;
 

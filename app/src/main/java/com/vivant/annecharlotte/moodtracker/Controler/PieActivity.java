@@ -1,25 +1,19 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vivant.annecharlotte.moodtracker.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 public class PieActivity extends AppCompatActivity {
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
@@ -52,7 +46,7 @@ public class PieActivity extends AppCompatActivity {
         data.setValueTextSize(16f);
         data.setValueTextColor(Color.BLACK);
 
-        PieChart chart = (PieChart) findViewById(R.id.activity_pie_piechart);
+        PieChart chart = findViewById(R.id.activity_pie_piechart);
         chart.setData(data);
         chart.animateY(1000);
         chart.setHoleRadius(45f);

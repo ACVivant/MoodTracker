@@ -1,24 +1,17 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.vivant.annecharlotte.moodtracker.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Map;
 
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener{
     private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
@@ -34,29 +27,29 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        mDay7TextView = (TextView) findViewById(R.id.activity_history_d7_textview);
-        mDay6TextView = (TextView) findViewById(R.id.activity_history_d6_textview);
-        mDay5TextView = (TextView) findViewById(R.id.activity_history_d5_textview);
-        mDay4TextView = (TextView) findViewById(R.id.activity_history_d4_textview);
-        mDay3TextView = (TextView) findViewById(R.id.activity_history_d3_textview);
-        mDay2TextView = (TextView) findViewById(R.id.activity_history_d2_textview);
-        mDay1TextView = (TextView) findViewById(R.id.activity_history_d1_textview);
+        mDay7TextView =  findViewById(R.id.activity_history_d7_textview);
+        mDay6TextView =  findViewById(R.id.activity_history_d6_textview);
+        mDay5TextView =  findViewById(R.id.activity_history_d5_textview);
+        mDay4TextView =  findViewById(R.id.activity_history_d4_textview);
+        mDay3TextView =  findViewById(R.id.activity_history_d3_textview);
+        mDay2TextView =  findViewById(R.id.activity_history_d2_textview);
+        mDay1TextView =  findViewById(R.id.activity_history_d1_textview);
 
-        mDay7 = (LinearLayout) findViewById(R.id.activity_history_d7_linearlayout);
-        mDay6 = (LinearLayout) findViewById(R.id.activity_history_d6_linearlayout);
-        mDay5 = (LinearLayout) findViewById(R.id.activity_history_d5_linearlayout);
-        mDay4 = (LinearLayout) findViewById(R.id.activity_history_d4_linearlayout);
-        mDay3 = (LinearLayout) findViewById(R.id.activity_history_d3_linearlayout);
-        mDay2 = (LinearLayout) findViewById(R.id.activity_history_d2_linearlayout);
-        mDay1 = (LinearLayout) findViewById(R.id.activity_history_d1_linearlayout);
+        mDay7 = findViewById(R.id.activity_history_d7_linearlayout);
+        mDay6 = findViewById(R.id.activity_history_d6_linearlayout);
+        mDay5 = findViewById(R.id.activity_history_d5_linearlayout);
+        mDay4 = findViewById(R.id.activity_history_d4_linearlayout);
+        mDay3 = findViewById(R.id.activity_history_d3_linearlayout);
+        mDay2 = findViewById(R.id.activity_history_d2_linearlayout);
+        mDay1 = findViewById(R.id.activity_history_d1_linearlayout);
 
-        mDay7Btn = (ImageButton) findViewById(R.id.activity_history_d7_notebtn);
-        mDay6Btn = (ImageButton) findViewById(R.id.activity_history_d6_notebtn);
-        mDay5Btn = (ImageButton) findViewById(R.id.activity_history_d5_notebtn);
-        mDay4Btn = (ImageButton) findViewById(R.id.activity_history_d4_notebtn);
-        mDay3Btn = (ImageButton) findViewById(R.id.activity_history_d3_notebtn);
-        mDay2Btn = (ImageButton) findViewById(R.id.activity_history_d2_notebtn);
-        mDay1Btn = (ImageButton) findViewById(R.id.activity_history_d1_notebtn);
+        mDay7Btn = findViewById(R.id.activity_history_d7_notebtn);
+        mDay6Btn = findViewById(R.id.activity_history_d6_notebtn);
+        mDay5Btn = findViewById(R.id.activity_history_d5_notebtn);
+        mDay4Btn = findViewById(R.id.activity_history_d4_notebtn);
+        mDay3Btn = findViewById(R.id.activity_history_d3_notebtn);
+        mDay2Btn = findViewById(R.id.activity_history_d2_notebtn);
+        mDay1Btn = findViewById(R.id.activity_history_d1_notebtn);
 
         mDay7Btn.setOnClickListener(this);
         mDay6Btn.setOnClickListener(this);

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MoodTracker</string>
 
+    <string name="description_btn_welcome">"Bouton page d'accueil"</string>
+    <string name="description_smiley_welcome">"Smiley page d'accueil"</string>
+    <string name="description_bottom_welcome">"Zone boutons page d'accueil"</string>
+
     <string name="dismiss_alertbtn">Annuler</string>
     <string name="validate_alertbtn">Valider</string>
     <string name="sms_alertbtn">Partager</string>
@@ -13,6 +17,7 @@
     <string name="d3_btn">Il y a 3 jours</string>
     <string name="d2_btn">Avant-hier</string>
     <string name="d1_btn">Hier</string>
+    <string name="description_btn">Bouton_note</string>
 
     <string name="welcome_sms">Pour toi à qui je dis tout:</string>
     <string name="message_sms">Message</string>
@@ -25,6 +30,7 @@
     <string name="permission_ok_toast">Permission accordée!</string>
     <string name="permission_no_toast">Permission refusée</string>
     <string name="permission_wrong">"Oups, ce numéro n'a pas le bon nombre de chiffres"</string>
+    <string name="hint_tel">numéro de téléphone</string>
 
     <string name="sms_1">"carrément mauvaise"</string>
     <string name="sms_2">"pas franchement bonne"</string>
