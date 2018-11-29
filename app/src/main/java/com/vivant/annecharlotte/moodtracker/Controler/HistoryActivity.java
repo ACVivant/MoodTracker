@@ -1,6 +1,7 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.vivant.annecharlotte.moodtracker.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * HistoryActivity manages what is related to the application history function.
@@ -28,9 +30,9 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     /**
      * none of these variables are modifiable
      */
-    private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return;
-    private String note7return, note6return, note5return, note4return, note3return, note2return, note1return;
-    private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
+    private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return, smiley0return;
+    private String note7return, note6return, note5return, note4return, note3return, note2return, note1return, note0return;
+    private String today, todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
 
     /**
      * send data to the layout
@@ -87,6 +89,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         calculate7dates();
         returnSavedSmiley();
         returndSavedNotes();
+        cleanSharedPreferences();
 
         // send data to the layout
         designHistory(mDay1, mDay1TextView, smiley1return, this);
@@ -105,13 +108,15 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         displayNoteBtn(note6return, mDay6Btn);
         displayNoteBtn(note7return, mDay7Btn);
     }
-     /**
+    /**
      * create keys for 7 last days
      */
     public void calculate7dates() {
+        Date day = new Date();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
+        today = sdf.format(day);
         calendar.add(Calendar.DATE, -1);
         todayMinus1 = sdf.format(calendar.getTime());
         calendar.add(Calendar.DATE, -1);
@@ -138,6 +143,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         smiley3return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus3, 3);
         smiley2return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus2, 3);
         smiley1return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + todayMinus1, 3);
+        smiley0return = getSharedPreferences("smiley", MODE_PRIVATE).getInt("SMILEY_KEY_" + today, 3);
     }
     /**
      * return saved notes
@@ -150,7 +156,46 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         note3return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus3, null);
         note2return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus2, null);
         note1return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + todayMinus1, null);
+        note0return = getSharedPreferences("smiley", MODE_PRIVATE).getString("NOTE_KEY_" + today, null);
     }
+    /**
+     * clean the unused SharedPreferences
+     */
+    public void cleanSharedPreferences() {
+        SharedPreferences preferences = getSharedPreferences("smiley", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+
+        saveDaylyPreferences(today, smiley0return, note0return);
+        saveDaylyPreferences(todayMinus1, smiley1return, note1return);
+        saveDaylyPreferences(todayMinus2, smiley2return, note2return);
+        saveDaylyPreferences(todayMinus3, smiley3return, note3return);
+        saveDaylyPreferences(todayMinus4, smiley4return, note4return);
+        saveDaylyPreferences(todayMinus5, smiley5return, note5return);
+        saveDaylyPreferences(todayMinus6, smiley6return, note6return);
+        saveDaylyPreferences(todayMinus7, smiley7return, note7return);
+    }
+
+    /**
+     * save the SharedPreferences
+     */
+    public void saveDaylyPreferences(String day, int smiley, String note) {
+        SharedPreferences preferences = getSharedPreferences("smiley", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        if (note != null) {
+            editor.putString("NOTE_KEY_" + day , note);
+        } else {
+            editor.putString("NOTE_KEY_" + day, "");
+        }
+        editor.apply();
+
+        editor.putInt("SMILEY_KEY_" + day ,smiley);
+        editor.apply();
+
+    }
+
     /**
      * adaptation of the layout (colors and sizes of each view)
      * @param mDay

@@ -254,17 +254,17 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         if (text != null) {
             editor.putString(noteKey , text);
         } else {
-            editor.putString(smileyKey, "");
+            editor.putString(noteKey, "");
         }
         editor.apply();
-        preferences.getString(noteKey, "défaut");
+        //preferences.getString(noteKey, "défaut");
 
         editor.putInt(smileyKey, responseIndex);
         editor.apply();
     }
 
     //-----------------------------------------------------------------------------------------------------------------
-    // ALl about sound
+    // All about sound
     //----------------------------------------------------------------------------------------------------------------
     /**
      * play a sound when user saves a mood

@@ -39,7 +39,7 @@
     <string name="sms_5">"super bonne"</string>
     <string name="sms_text1">"Je te partage mon humeur du moment. Elle est "</string>
 
-    <string name="pie_title">Statistiques de la semaine</string>
-    <string name="pie_legend_title">  humeur </string>
+    <string name="pie_title">Répartition des humeurs</string>
+    <string name="pie_legend_title">  ...humeur </string>
 
 </resources>
