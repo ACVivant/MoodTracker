@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     private EditText smileyText;
     private String smsTextLong;
     private EditText phone;
+    private String smsMood;
 
     protected int responseIndex;
 
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
      */
     private void askForPermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
-            createSms();
+            createTextSms();
         } else {
             requestSMSPermission();
         }
@@ -162,46 +163,52 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         if (requestCode == SMS_PERMISSION_CODE) {
             if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, R.string.permission_ok_toast, Toast.LENGTH_SHORT).show();
-                createSms();
+                createTextSms();
             } else {
                 Toast.makeText(this, R.string.permission_no_toast, Toast.LENGTH_SHORT).show();
             }
         }
     }
     /**
-     * generate AlertDialog with automatic content (note and smiley, EditText for phone number)
+     * generate text for the SMS
+     */
+    private void createTextSms() {
+
+        switch (responseIndex) {
+            case 0:
+                smsMood = getResources().getString(R.string.sms_1);
+                break;
+            case 1:
+                smsMood = getResources().getString(R.string.sms_2);
+                break;
+            case 2:
+                smsMood = getResources().getString(R.string.sms_3);
+                break;
+            case 3:
+                smsMood = getResources().getString(R.string.sms_4);
+                break;
+            case 4:
+                smsMood = getResources().getString(R.string.sms_5);
+                break;
+            default:
+                smsMood = getResources().getString(R.string.sms_4);
+                break;
+        }
+
+        smsTextLong = getResources().getString(R.string.sms_text1) + smsMood + ". \n" + smileyText.getText().toString();
+        createSms();
+    }
+    /**
+     * generate AlertDialog with SMS Text
      */
     private void createSms() {
-        EditText smsText;
-        String smsMood;
-
-            switch (responseIndex) {
-                case 0:
-                    smsMood = getResources().getString(R.string.sms_1);
-                    break;
-                case 1:
-                    smsMood = getResources().getString(R.string.sms_2);
-                    break;
-                case 2:
-                    smsMood = getResources().getString(R.string.sms_3);
-                    break;
-                case 3:
-                    smsMood = getResources().getString(R.string.sms_4);
-                    break;
-                case 4:
-                    smsMood = getResources().getString(R.string.sms_5);
-                    break;
-                default:
-                    smsMood = getResources().getString(R.string.sms_4);
-                    break;
-            }
-
             View view;
+        EditText smsText;
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             view = getLayoutInflater().inflate(R.layout.alertdialog_sms, null);
             phone = view.findViewById(R.id.frg_sms_phonenumer_edittext);
             smsText = view.findViewById(R.id.frg_sms_message_edittext);
-            smsTextLong = getResources().getString(R.string.sms_text1) + smsMood + ". \n" + smileyText.getText().toString();
             smsText.setText(smsTextLong);
             builder.setView(view);
             builder.setPositiveButton(R.string.validate_alertbtn, new DialogInterface.OnClickListener() {

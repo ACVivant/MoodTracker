@@ -7,12 +7,9 @@ import android.os.Bundle;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.vivant.annecharlotte.moodtracker.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -115,13 +112,11 @@ public class PieActivity extends AppCompatActivity {
         for (int i=0; i<smileyName.length; i++) {
             pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));
         }
-
         PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.pie_legend_title));
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(15f);
         dataSet.setColors(new int[] {getResources().getColor(R.color.faded_red), getResources().getColor(R.color.warm_grey), getResources().getColor(R.color.cornflower_blue_65), getResources().getColor(R.color.light_sage), getResources().getColor(R.color.banana_yellow)}, 1000);
         PieData data = new PieData(dataSet);
-
         data.setDrawValues(false);
 
         PieChart chart = findViewById(R.id.activity_pie_piechart);
@@ -135,7 +130,6 @@ public class PieActivity extends AppCompatActivity {
         Description description = new Description();
         description.setText("");
         chart.setDescription(description);
-
         Legend l = chart.getLegend();
         l.setFormSize(20f); // set the size of the legend forms/shapes
         l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
@@ -144,6 +138,5 @@ public class PieActivity extends AppCompatActivity {
         l.setXEntrySpace(3f);
         l.setWordWrapEnabled(true);
     }
-
 }
 

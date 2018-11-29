@@ -32,10 +32,8 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_smiley, container, false);
-
         RelativeLayout colorBg = v.findViewById(R.id.fragment_page_rootview);
         colorBg.setBackgroundResource(getArguments().getInt("color"));
-
         ImageButton imageSmiley = v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
@@ -45,21 +43,18 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
                 mBtnClic.onCommentClicked(getArguments().getInt("index"));
             }
         });
-
         v.findViewById(R.id.fragment_main_smiley_image_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBtnClic.onCommentClicked(getArguments().getInt("index"));
             }
         });
-
         v.findViewById(R.id.activity_main_history_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBtnClic.onHistoryClicked();
             }
         });
-
         v.findViewById(R.id.activity_main_pie_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,67 +72,36 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
      * give the characteristics of each view according to mood
      */
     public static SmileyFragment newInstance(SmileyEnum smiley) {
-
         SmileyFragment f = new SmileyFragment();
         Bundle bTransfert = new Bundle();
-        int smileyColor, smileyIndex, smileyImage;
 
-        // link between moods and their graphical characteristics and index
         switch (smiley) {
             case SAD:
-                smileyColor = SmileyEnum.SAD.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.SAD.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.SAD.getIndex();
-                bTransfert.putInt("index", smileyIndex);
+                bTransfert.putInt("color", SmileyEnum.SAD.getColor());
+                bTransfert.putInt("image", SmileyEnum.SAD.getImage());
+                bTransfert.putInt("index", SmileyEnum.SAD.getIndex());
                 break;
-
             case DISAPPOINTED:
-                smileyColor = SmileyEnum.DISAPPOINTED.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.DISAPPOINTED.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.DISAPPOINTED.getIndex();
-                bTransfert.putInt("index", smileyIndex);
+                bTransfert.putInt("color",SmileyEnum.DISAPPOINTED.getColor());
+                bTransfert.putInt("image", SmileyEnum.DISAPPOINTED.getImage());
+                bTransfert.putInt("index", SmileyEnum.DISAPPOINTED.getIndex());
                 break;
-
             case NORMAL:
-                smileyColor = SmileyEnum.NORMAL.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.NORMAL.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.NORMAL.getIndex();
-                bTransfert.putInt("index", smileyIndex);
+                bTransfert.putInt("color", SmileyEnum.NORMAL.getColor());
+                bTransfert.putInt("image",SmileyEnum.NORMAL.getImage());
+                bTransfert.putInt("index", SmileyEnum.NORMAL.getIndex());
                 break;
-
             case HAPPY:
-                smileyColor = SmileyEnum.HAPPY.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.HAPPY.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.HAPPY.getIndex();
-                bTransfert.putInt("index", smileyIndex);
+                bTransfert.putInt("color", SmileyEnum.HAPPY.getColor());
+                bTransfert.putInt("image", SmileyEnum.HAPPY.getImage());
+                bTransfert.putInt("index", SmileyEnum.HAPPY.getIndex());
                 break;
-
             case SUPER_HAPPY:
-                smileyColor = SmileyEnum.SUPER_HAPPY.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.SUPER_HAPPY.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.SUPER_HAPPY.getIndex();
-                bTransfert.putInt("index", smileyIndex);
+                bTransfert.putInt("color", SmileyEnum.SUPER_HAPPY.getColor());
+                bTransfert.putInt("image", SmileyEnum.SUPER_HAPPY.getImage());
+                bTransfert.putInt("index",  SmileyEnum.SUPER_HAPPY.getIndex());
                 break;
-
-            default:
-                smileyColor = SmileyEnum.HAPPY.getColor();
-                bTransfert.putInt("color", smileyColor);
-                smileyImage = SmileyEnum.HAPPY.getImage();
-                bTransfert.putInt("image", smileyImage);
-                smileyIndex = SmileyEnum.HAPPY.getIndex();
-                bTransfert.putInt("index", smileyIndex);
-                break;
-        }
+                }
         f.setArguments(bTransfert);
         return f;
     }

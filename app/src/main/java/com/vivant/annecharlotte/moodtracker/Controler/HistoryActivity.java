@@ -33,6 +33,9 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     private int smiley7return, smiley6return, smiley5return, smiley4return, smiley3return, smiley2return, smiley1return, smiley0return;
     private String note7return, note6return, note5return, note4return, note3return, note2return, note1return, note0return;
     private String today, todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
+    private TextView mDay7TextView, mDay6TextView, mDay5TextView, mDay4TextView, mDay3TextView, mDay2TextView, mDay1TextView;
+    private LinearLayout mDay7, mDay6, mDay5, mDay4, mDay3, mDay2, mDay1;
+    private ImageButton mDay7Btn, mDay6Btn, mDay5Btn, mDay4Btn, mDay3Btn, mDay2Btn, mDay1Btn;
 
     /**
      * send data to the layout
@@ -47,13 +50,19 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TextView mDay7TextView, mDay6TextView, mDay5TextView, mDay4TextView, mDay3TextView, mDay2TextView, mDay1TextView;
-        LinearLayout mDay7, mDay6, mDay5, mDay4, mDay3, mDay2, mDay1;
-        ImageButton mDay7Btn, mDay6Btn, mDay5Btn, mDay4Btn, mDay3Btn, mDay2Btn, mDay1Btn;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-
+        referenceGraphicalObject();
+        calculate7dates();
+        returnSavedSmiley();
+        returndSavedNotes();
+        cleanSharedPreferences();
+        sendDataLayout();
+    }
+    /**
+     * reference of the objects of the layout
+     */
+    public void referenceGraphicalObject() {
         mDay7TextView =  findViewById(R.id.activity_history_d7_textview);
         mDay6TextView =  findViewById(R.id.activity_history_d6_textview);
         mDay5TextView =  findViewById(R.id.activity_history_d5_textview);
@@ -85,13 +94,13 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         mDay3Btn.setOnClickListener(this);
         mDay2Btn.setOnClickListener(this);
         mDay1Btn.setOnClickListener(this);
+    }
 
-        calculate7dates();
-        returnSavedSmiley();
-        returndSavedNotes();
-        cleanSharedPreferences();
-
-        // send data to the layout
+    /**
+     * create keys for 7 last days
+     */
+    public void sendDataLayout() {
+        designHistory(mDay1, mDay1TextView, smiley1return, this);
         designHistory(mDay1, mDay1TextView, smiley1return, this);
         designHistory(mDay2, mDay2TextView, smiley2return, this);
         designHistory(mDay3, mDay3TextView, smiley3return, this);
@@ -108,6 +117,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         displayNoteBtn(note6return, mDay6Btn);
         displayNoteBtn(note7return, mDay7Btn);
     }
+
     /**
      * create keys for 7 last days
      */
