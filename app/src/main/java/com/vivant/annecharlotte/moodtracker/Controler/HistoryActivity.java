@@ -14,6 +14,7 @@ import com.vivant.annecharlotte.moodtracker.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * HistoryActivity manages what is related to the application history function.
@@ -124,7 +125,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     public void calculate7dates() {
         Date day = new Date();
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
 
         today = sdf.format(day);
         calendar.add(Calendar.DATE, -1);

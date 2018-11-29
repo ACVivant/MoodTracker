@@ -2,6 +2,8 @@ package com.vivant.annecharlotte.moodtracker.Controler;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,12 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
      * @see PieActivity#setupPieChart()
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_smiley, container, false);
         RelativeLayout colorBg = v.findViewById(R.id.fragment_page_rootview);
-        colorBg.setBackgroundResource(getArguments().getInt("color"));
+        if (getArguments() != null) {
+            colorBg.setBackgroundResource(getArguments().getInt("color"));
+        }
         ImageButton imageSmiley = v.findViewById(R.id.fragment_main_smiley_image_view);
         imageSmiley.setBackgroundResource(getArguments().getInt("image"));
 
