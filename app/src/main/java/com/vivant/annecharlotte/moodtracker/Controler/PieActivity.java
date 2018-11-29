@@ -1,7 +1,6 @@
 package com.vivant.annecharlotte.moodtracker.Controler;
 
 import android.graphics.Color;
-import android.icu.text.DecimalFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.github.mikephil.charting.charts.PieChart;
@@ -15,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
 /**
  * PieActivity manages what is related to the statistic function.
  *
@@ -30,14 +31,7 @@ public class PieActivity extends AppCompatActivity {
     private String todayMinus1, todayMinus2, todayMinus3, todayMinus4, todayMinus5, todayMinus6, todayMinus7;
 
     private int smileyTab[]= {0,0,0,0,0};
-  /*  String leg1 = getResources().getString(R.string.sms_1);  // Ca fait planter l'appli! Pourquoi?
-    String leg2 = getResources().getString(R.string.sms_2);
-    String leg3 = getResources().getString(R.string.sms_3);
-    String leg4 = getResources().getString(R.string.sms_4);
-    String leg5 = getResources().getString(R.string.sms_5);*/
-
- //   private String smileyName[] = {leg1, leg2, leg3, leg4, leg5};
-    private String smileyName[] = {"affreuse", "mauvaise", "normale", "bonne", "très bonne"};
+    private String smileyName[] = {"", "", "", "", ""};
 
     /**
      * generate a pie chart with statistic about moods of 7 lasted days
@@ -51,6 +45,7 @@ public class PieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_pie);
         calculate7dates();
         createTab();
@@ -61,7 +56,7 @@ public class PieActivity extends AppCompatActivity {
      */
     public void calculate7dates() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
 
         calendar.add(Calendar.DATE, -1);
         todayMinus1 = sdf.format(calendar.getTime());
@@ -108,6 +103,13 @@ public class PieActivity extends AppCompatActivity {
      * customize the pie chart
      */
     public void  setupPieChart() {
+
+       smileyName[0] = getResources().getString(R.string.sms_1);
+       smileyName[1] = getResources().getString(R.string.sms_2);
+       smileyName[2] = getResources().getString(R.string.sms_3);
+       smileyName[3] = getResources().getString(R.string.sms_4);
+       smileyName[4] = getResources().getString(R.string.sms_5);
+
         List<PieEntry> pieEntries = new ArrayList<>();
         for (int i=0; i<smileyName.length; i++) {
             pieEntries.add(new PieEntry(smileyTab[i], smileyName[i]));

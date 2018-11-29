@@ -25,6 +25,7 @@ import com.vivant.annecharlotte.moodtracker.Model.SmileyEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     private EditText smileyText;
     private String smsTextLong;
     private EditText phone;
-    private String smsMood;
+
 
     protected int responseIndex;
 
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
      * generate text for the SMS
      */
     private void createTextSms() {
-
+        String smsMood;
         switch (responseIndex) {
             case 0:
                 smsMood = getResources().getString(R.string.sms_1);
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
      */
     public void createKeys() { // create the key of the day for theSavesPreferences
         Date day = new Date();
-        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
         String s = f.format(day);
         noteKey = "NOTE_KEY_" + s;
         smileyKey = "SMILEY_KEY_" + s;
