@@ -19,7 +19,7 @@ Thanks to the history screen, you can have a look on your last moods.
 
 Thanks to the pie screen, you can see at a glance your general mood.
 
-![alt tag](https://user-images.githubusercontent.com/39029651/49213876-99d85a80-f3c5-11e8-8423-a13f9f639c3b.PNG)
+![alt tag](https://user-images.githubusercontent.com/39029651/49214585-4b2bc000-f3c7-11e8-9477-4fa3132a100c.PNG)
 
 #Instructions for installation
 
