@@ -23,7 +23,7 @@ public class SmileyFragment extends android.support.v4.app.Fragment implements V
     public SmileyFragment() {
     }
     /**
-     * Send informations for adaptation of image and background and put listeners on all the buttons
+     * Send information for adaptation of image and background and put listeners on all the buttons
      *
      * @see PieActivity#calculate7dates()
      * @see PieActivity#createTab()

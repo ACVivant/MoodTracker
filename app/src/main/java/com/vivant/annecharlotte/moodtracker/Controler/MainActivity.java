@@ -29,8 +29,8 @@ import java.util.Date;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity implements SmileyFragment.OnButtonClickedListener {
-    private String NOTE_KEY;
-    private String SMILEY_KEY;
+    private String noteKey;
+    private String smileyKey;
     private EditText smileyText;
     private String smsTextLong;
     private EditText phone;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
 
         View view; // creation of the Dialog View
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        view = getLayoutInflater().inflate(R.layout.fragment_my_dialog, null);
+        view = getLayoutInflater().inflate(R.layout.alertdialog_notes, null);
         smileyText = view.findViewById(R.id.frg_my_dialog_note_text_input);
         builder.setView(view);
         builder.setPositiveButton(R.string.validate_alertbtn, new DialogInterface.OnClickListener() {
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
                 createKeys();
                 saveToday(smileyText.getText().toString());
 
-                //sms = true;
                 askForPermission();
             }
         });
@@ -118,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     //----------------------------------------------------------------------------------------------------------------
     /**
      * launch method for permission to send SMS if not already given
-     * @see MainActivity#sendSms
+     * @see MainActivity#createSms
      * @see MainActivity#requestSMSPermission()
      */
     private void askForPermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
-            sendSms();
+            createSms();
         } else {
             requestSMSPermission();
         }
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         if (requestCode == SMS_PERMISSION_CODE) {
             if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, R.string.permission_ok_toast, Toast.LENGTH_SHORT).show();
-                sendSms();
+                createSms();
             } else {
                 Toast.makeText(this, R.string.permission_no_toast, Toast.LENGTH_SHORT).show();
             }
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
     /**
      * generate AlertDialog with automatic content (note and smiley, EditText for phone number)
      */
-    private void sendSms() {
+    private void createSms() {
         EditText smsText;
         String smsMood;
 
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
 
             View view;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            view = getLayoutInflater().inflate(R.layout.fragment_sms, null);
+            view = getLayoutInflater().inflate(R.layout.alertdialog_sms, null);
             phone = view.findViewById(R.id.frg_sms_phonenumer_edittext);
             smsText = view.findViewById(R.id.frg_sms_message_edittext);
             smsTextLong = getResources().getString(R.string.sms_text1) + smsMood + ". \n" + smileyText.getText().toString();
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
             builder.create().show();
     }
     /**
-     * verify that the phone nuber as the goof format and sens the SMS
+     * verify that the phone number as the good format and sent the SMS
      */
     private void sentMessage() {
         String phoneMessage = phone.getText().toString();
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
             SmsManager.getDefault().sendTextMessage(phoneMessage, null, smsTextLong, null, null);
         } else {
             Toast.makeText(this, R.string.permission_wrong, Toast.LENGTH_SHORT).show();
-            sendSms();
+            createSms();
         }
     }
     //-----------------------------------------------------------------------------------------------------------------
@@ -241,8 +240,8 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         Date day = new Date();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String s = f.format(day);
-        NOTE_KEY = "NOTE_KEY_" + s;
-        SMILEY_KEY = "SMILEY_KEY_" + s;
+        noteKey = "NOTE_KEY_" + s;
+        smileyKey = "SMILEY_KEY_" + s;
     }
     /**
      * save mood and note of the day
@@ -253,14 +252,14 @@ public class MainActivity extends AppCompatActivity implements SmileyFragment.On
         SharedPreferences preferences = getSharedPreferences("smiley", MODE_PRIVATE);
         SharedPreferences.Editor editor=preferences.edit();
         if (text != null) {
-            editor.putString(NOTE_KEY , text);
+            editor.putString(noteKey , text);
         } else {
-            editor.putString(NOTE_KEY, "");
+            editor.putString(smileyKey, "");
         }
         editor.apply();
-        preferences.getString(NOTE_KEY, "défaut");
+        preferences.getString(noteKey, "défaut");
 
-        editor.putInt(SMILEY_KEY, responseIndex);
+        editor.putInt(smileyKey, responseIndex);
         editor.apply();
     }
 
