@@ -29,4 +29,9 @@ Thanks to the pie screen, you can see at a glance your general mood.
 2-To import MoodTracker project to Android Studio
   Start Android Studio and close any open Android Studio project
   From the Android Studio menu select : File > New > Import Project
+<<<<<<< HEAD
   Select the MoodTracker project folder with the AndroidManifest.xml file and click Ok.
+=======
+  Select the MoodTracker project folder with the AndroidManifest.xml file and click Ok.
+
+>>>>>>> 658db9ea8e946f0d3424002b329da21a4f7a9752
